@@ -1,0 +1,35 @@
+
+img/
+db.sqlite3
+Documents/
+# Archivos temporales creados por el sistema
+.vscode/
+__pycache__/
+*.log
+venv/
+
+# Carpeta de entorno virtual (si estás usando virtualenv o similar)
+venv/
+env/
+
+# Archivos generados automáticamente
+*.pyc
+*.pyo
+__pycache__
+
+# Archivos de registro
+*.log
+
+# Archivos de configuración locales
+.env
+
+# Dependencias de Node.js (si estás usando JavaScript)
+node_modules/
+
+# Dependencias de Python (si estás usando Python)
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
