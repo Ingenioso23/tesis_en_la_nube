@@ -360,16 +360,18 @@ def detalle_entidad_salud(request, id_entidad):
     return render(request, 'detalle_entidad_salud.html', {'entidad_salud': entidad_salud})
 
 def editar_entidad_salud(request, id_entidad):
-    print(f'id_entidad: {id_entidad}')  # Imprime el valor de id_entidad para verificar
-
-    # Asegúrate de que id_entidad no sea None o una cadena vacía
-    if not id_entidad:
-        # Manejar este caso según tus necesidades
-        # Puedes redirigir a otra página o mostrar un error
-        return HttpResponse("ID de entidad no válida")
-
     entidad_salud = get_object_or_404(EntidadSalud, id_entidad=id_entidad)
-    form = EntidadSaludForm(instance=entidad_salud)
+
+    if request.method == 'POST':
+        form = EntidadSaludForm(request.POST, instance=entidad_salud)
+        if form.is_valid():
+            form.save()
+            # Puedes redirigir a una página de detalle o a la lista de entidades de salud
+            return redirect('detalle_entidad_salud', id_entidad=id_entidad)
+
+    else:
+        form = EntidadSaludForm(instance=entidad_salud)
+
     return render(request, 'editar_entidad_salud.html', {'form': form, 'entidad_salud': entidad_salud})
 
 def borrar_entidad_salud(request, id_entidad):

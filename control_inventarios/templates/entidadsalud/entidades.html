@@ -1,19 +1,21 @@
-<!-- entidades.html -->
 {% extends 'base.html' %}
 
 {% block title %}Entidades de Salud{% endblock %}
 
 {% block content %}
 <div class="container">
-    <h1>Entidades de Salud</h1>
     <div class="row">
-        <div class="col-md-6">
-            <!-- Contenido relacionado con la configuración de clientes -->
-            <h2>Configuración Entidades de Salud</h2>
-            <ul>
-                <a class="dropdown-item" href="{% url 'lista_entidades_salud' %}">Listar Entidades</a>
-                <a class="dropdown-item" href="{% url 'crear_entidad_salud' %}">Crear Entidad</a>
-            </ul>
+        <div class="col-md-8 offset-md-2">
+            <h1 class="text-center mb-4">Entidades de Salud</h1>
+            <div class="card">
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item"><a href="{% url 'lista_entidades_salud' %}" class="dropdown-item">Listar Entidades</a></li>
+                        <li class="list-group-item"><a href="{% url 'crear_entidad_salud' %}" class="dropdown-item">Crear Entidad</a></li>
+                        <!-- Puedes agregar más enlaces relacionados con entidades de salud aquí -->
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </div>

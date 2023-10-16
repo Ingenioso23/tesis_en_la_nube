@@ -1,10 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Editar Usuario</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Guardar Cambios</button>
-</form>
+    <div class="container">
+        <h2 class="text-center">Editar Usuario</h2>
+        <form method="post" class="center-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Guardar</button>
+        </form>
+        <div class="text-center">
+            <a href="{% url 'listar_usuarios' %}">Volver al Listado</a>
+        </div>
+    </div>
 {% endblock %}

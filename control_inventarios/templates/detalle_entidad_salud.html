@@ -8,7 +8,12 @@
   <p>Dirección: {{ entidad_salud.direccion }}</p>
   <p>Teléfono: {{ entidad_salud.telefono }}</p>
   <p>Email: {{ entidad_salud.email }}</p>
-  <a href="{% url 'editar_entidad_salud' entidad_salud.id_entidad %}">Editar</a>
-  <a href="{% url 'borrar_entidad_salud' entidad_salud.id_entidad %}">Borrar</a>
-  <a href="{% url 'lista_entidades_salud' %}">Volver a la Lista</a>
+   <a href="{% url 'editar_entidad_salud' entidad_salud.id_entidad %}" class="btn btn-primary">Editar</a>
+  
+  <!-- Borrar -->
+  <a href="{% url 'borrar_entidad_salud' entidad_salud.id_entidad %}" class="btn btn-danger">Borrar</a>
+  
+  <!-- Volver a la Lista -->
+  <a href="{% url 'lista_entidades_salud' %}" class="btn btn-secondary">Volver a la Lista</a>
+ 
 {% endblock %}

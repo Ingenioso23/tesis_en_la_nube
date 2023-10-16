@@ -4,15 +4,18 @@
 
 {% block content %}
 <div class="container">
-    <h1>Configuración</h1>
     <div class="row">
-        <div class="col-md-6">
-            <!-- Contenido relacionado con la configuración de usuarios -->
-            <h2>Configuración de Usuarios</h2>
-            <ul>
-                <li><a href="{% url 'crear_usuario' %}">Crear Usuario</a></li>
-                <li><a href="{% url 'listar_usuarios' %}">Listar Usuarios</a></li>
-            </ul>
+        <div class="col-md-8 offset-md-2">
+            <h1 class="text-center mb-4">Configuración de Usuarios del Sistema</h1>
+            <div class="card">
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item"><a href="{% url 'crear_usuario' %}" class="dropdown-item">Crear Usuario</a></li>
+                        <li class="list-group-item"><a href="{% url 'listar_usuarios' %}" class="dropdown-item">Listar Usuarios</a></li>
+                        <!-- Puedes agregar más enlaces relacionados con usuarios aquí -->
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </div>

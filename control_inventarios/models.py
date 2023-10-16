@@ -45,20 +45,20 @@ class Producto(models.Model):
     )
 
     id = models.CharField(primary_key=True, max_length=8)
-    nombre = models.CharField(max_length=255)
+    NombreProducto = models.CharField(max_length=255)
     categoria = models.CharField(max_length=255, choices=CATEGORIAS)
     TipoProducto = models.CharField(max_length=255)
-    NombreProducto = models.CharField(max_length=255)
+    Concentracion = models.CharField(max_length=255)
+    FormaFarmaceutica = models.CharField(max_length=255)
+    UnidadesMedida = models.CharField(max_length=255)
     NumeroLote = models.CharField(max_length=255)
     FechaVencimiento = models.DateField(default=None)
     CantidadStock = models.IntegerField(default=0)
-    Concentracion = models.CharField(max_length=255)
-    FormaFarmaceutica = models.CharField(max_length=255)
+    NivelReorden = models.IntegerField()
     Proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
     NumeroReferencia = models.CharField(max_length=255)
-    UnidadesMedida = models.CharField(max_length=255)
     UbicacionAlmacen = models.CharField(max_length=255)
-    NivelReorden = models.IntegerField()
+    
     
     def actualizar_stock(self, cantidad):
         # Actualizar la cantidad de stock descontando la cantidad especificada

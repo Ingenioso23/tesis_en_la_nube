@@ -50,9 +50,15 @@ class CustomAuthenticationForm(forms.Form):
 
 
 class CrearUsuarioForm(UserCreationForm):
+    groups = forms.ModelMultipleChoiceField(
+        label='Rol Asignado',  # Cambia la etiqueta según tus preferencias
+        queryset=Group.objects.all(),
+        required=False,
+        widget=forms.CheckboxSelectMultiple,
+    )
     class Meta:
         model = Usuario
-        fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2', 'groups']
-        
+        fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2', 'groups','is_staff', 'is_active', 'is_superuser']
+  
         
 
