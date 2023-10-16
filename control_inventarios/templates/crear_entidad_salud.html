@@ -1,0 +1,12 @@
+<!-- crear_entidad_salud.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Crear Nueva Entidad de Salud</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Crear Entidad de Salud</button>
+  </form>
+  <a href="{% url 'lista_entidades_salud' %}">Volver a la Lista</a>
+{% endblock %}

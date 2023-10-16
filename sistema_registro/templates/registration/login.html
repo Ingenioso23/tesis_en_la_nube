@@ -1,0 +1,22 @@
+<!-- login.html -->
+{% extends 'base.html' %}
+
+{% block notificaciones%}{% endblock %}
+{% block navbar %}{% endblock %}
+{% block title %}Inciar Sesión{% endblock %}
+
+{% block content %}
+    <!-- Contenido específico del formulario de inicio de sesión -->
+    <div class="login-container">
+        <h2>Iniciar Sesión</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+        </form>
+        <!-- <p>¿Aún no tienes una cuenta? <a href="{% url 'registro' %}">Regístrate</a></p> -->
+        <p>¿Olvidaste tu contraseña? <a href="{% url 'password_reset' %}">Recuperar Contraseña</a></p>
+    </div>
+
+{% endblock %}
+

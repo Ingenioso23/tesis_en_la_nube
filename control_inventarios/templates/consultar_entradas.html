@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Consultar Entradas - IPSI{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Consultar Entradas</h1>
+    <!-- Agrega filtros y formularios según tus necesidades -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID Producto</th>
+                <th>Cantidad</th>
+                <th>Fecha de Entrada</th>
+                <th>Proveedor</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entrada in entradas %}
+            <tr>
+                <td>{{ entrada.id_producto.id }}</td>
+                <td>{{ entrada.cantidad }}</td>
+                <td>{{ entrada.fecha_entrada }}</td>
+                <td>{{ entrada.proveedor.nombre }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+    <a href="{% url 'exportar_entradas' %}">Exportar Entradas</a>
+{% endblock %}

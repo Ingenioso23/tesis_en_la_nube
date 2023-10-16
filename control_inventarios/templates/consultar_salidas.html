@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Consultar Salidas - IPSI{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Consultar Salidas</h1>
+    <!-- Agrega filtros y formularios según tus necesidades -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID Producto</th>
+                <th>Cantidad</th>
+                <th>Fecha de Salida</th>
+                <th>Destino</th>
+                <th>Razón</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for salida in salidas %}
+            <tr>
+                <td>{{ salida.id_producto.id }}</td>
+                <td>{{ salida.cantidad }}</td>
+                <td>{{ salida.fecha_salida }}</td>
+                <td>{{ salida.destino }}</td>
+                <td>{{ salida.razon }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+    <a href="{% url 'exportar_salidas' %}">Exportar Salidas</a>
+{% endblock %}
+

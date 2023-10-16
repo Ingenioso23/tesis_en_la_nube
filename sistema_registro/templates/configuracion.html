@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Configuración - IPSI{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Configuración</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Contenido relacionado con la configuración de usuarios -->
+            <h2>Configuración de Usuarios</h2>
+            <ul>
+                <li><a href="{% url 'crear_usuario' %}">Crear Usuario</a></li>
+                <li><a href="{% url 'listar_usuarios' %}">Listar Usuarios</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

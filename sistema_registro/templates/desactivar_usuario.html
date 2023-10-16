@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Desactivar Usuario</h2>
+<p>¿Estás seguro que deseas desactivar este usuario?</p>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">Desactivar Usuario</button>
+</form>
+{% endblock %}

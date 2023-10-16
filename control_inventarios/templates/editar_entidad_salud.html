@@ -1,0 +1,13 @@
+<!-- editar_entidad_salud.html -->
+{% extends 'base.html' %}
+
+{% block title %}Editar Entidad de Salud{% endblock %}
+
+{% block content %}
+<h1>Editar Entidad de Salud: {{ entidad_salud.nombre }}</h1>
+<form method="post" action="{% url 'editar_entidad_salud' id_entidad=entidad_salud.id_entidad %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar cambios</button>
+</form>
+{% endblock %}

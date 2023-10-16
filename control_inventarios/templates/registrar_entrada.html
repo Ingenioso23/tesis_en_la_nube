@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <h1>Registrar Entrada de Suministros</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <!-- Formset para el detalle -->
+    {{ formset.management_form }}
+    {{ formset.non_form_errors }}
+    {% for form in formset %}
+      {{ form.as_table }}
+    {% endfor %}
+
+    <button type="submit">Registrar Entrada</button>
+  </form>
+
+  <!-- Botón de salida -->
+  <a href="{% url 'index' %}">Salir</a>
+
+{% endblock %}

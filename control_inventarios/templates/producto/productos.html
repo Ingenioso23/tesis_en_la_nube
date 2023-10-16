@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Productos - IPSI{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Productos</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Contenido relacionado con la configuración de clientes -->
+            <h2>Configuración de Productos</h2>
+            <ul>
+                
+                <a class="dropdown-item" href="{% url 'listar_productos' %}">Listar Productos</a>
+                <a class="dropdown-item" href="{% url 'crear_producto' %}">Crear Producto</a>
+         
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

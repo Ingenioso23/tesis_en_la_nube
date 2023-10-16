@@ -1,0 +1,14 @@
+<!-- detalle_entidad_salud.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Detalles de la Entidad de Salud</h1>
+  <p>ID de Entidad: {{ entidad_salud.id_entidad }}</p>
+  <p>Nombre: {{ entidad_salud.nombre }}</p>
+  <p>Dirección: {{ entidad_salud.direccion }}</p>
+  <p>Teléfono: {{ entidad_salud.telefono }}</p>
+  <p>Email: {{ entidad_salud.email }}</p>
+  <a href="{% url 'editar_entidad_salud' entidad_salud.id_entidad %}">Editar</a>
+  <a href="{% url 'borrar_entidad_salud' entidad_salud.id_entidad %}">Borrar</a>
+  <a href="{% url 'lista_entidades_salud' %}">Volver a la Lista</a>
+{% endblock %}

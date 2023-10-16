@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% block notificaciones%}{% endblock %}
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}Recuperar Contraseña - IPSI{% endblock %}
+    
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+
+</head>
+{% block navbar %}{% endblock %}
+<body class="bg-blue">
+    {% block content %}
+    <div class="recuperar-contrasena-container">
+        
+        <h2>Recuperar Contraseña</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Enviar Correo de Recuperación</button>
+        </form>
+        <p>¿Recuerdas tu contraseña? <a href="{% url 'login' %}">Inicia Sesión</a></p>
+    </div>
+    {% endblock %}
+</body>
+</html>

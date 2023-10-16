@@ -1,0 +1,40 @@
+<!-- listar_clientes.html -->
+{% extends 'base.html' %}
+
+{% block title %}Listar Clientes - IPSI{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Listar Clientes</h1>
+    {% if clientes %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Dirección</th>
+                    <th>Teléfono</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cliente in clientes %}
+                    <tr>
+                        <td>{{ cliente.id_cliente }}</td>
+                        <td>{{ cliente.nombre }}</td>
+                        <td>{{ cliente.direccion }}</td>
+                        <td>{{ cliente.telefono }}</td>
+                        <td>
+                            <a href="{% url 'editar_cliente' id_cliente=cliente.id_cliente %}">Editar</a>
+                            <a href="{% url 'borrar_cliente' id_cliente=cliente.id_cliente %}">Borrar</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No hay clientes registrados.</p>
+    {% endif %}
+    <a href="{% url 'crear_cliente' %}">Crear Cliente</a>
+</div>
+{% endblock %}

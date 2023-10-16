@@ -1,0 +1,14 @@
+<!-- borrar_entidad_salud.html -->
+{% extends 'base.html' %}
+
+{% block title %}Borrar Entidad de Salud{% endblock %}
+
+{% block content %}
+<h1>Confirmar borrado de {{ entidad_salud.nombre }}</h1>
+<p>¿Estás seguro de que quieres borrar {{ entidad_salud.nombre }}?</p>
+<form method="post" action="{% url 'borrar_entidad_salud' id_entidad=entidad_salud.id_entidad %}">
+    {% csrf_token %}
+    <button type="submit">Sí, borrar</button>
+</form>
+<a href="{% url 'lista_entidades_salud' %}">Cancelar</a>
+{% endblock %}

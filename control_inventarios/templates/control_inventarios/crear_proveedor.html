@@ -1,0 +1,13 @@
+<!-- control_inventarios/templates/control_inventarios/crear_proveedor.html -->
+
+{% extends "base.html" %}  <!-- Ajusta la extensión según tu estructura de plantillas -->
+
+{% block content %}
+  <h1>Crear Proveedor</h1>
+  <form method="post" action="{% url 'crear_proveedor' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar</button>
+  </form>
+  <a href="{% url 'listar_proveedores' %}">Volver a la lista de proveedores</a>
+{% endblock %}

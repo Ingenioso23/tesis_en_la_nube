@@ -1,0 +1,13 @@
+<!-- control_inventarios/templates/control_inventarios/borrar_proveedor.html -->
+
+{% extends "base.html" %}  <!-- Ajusta la extensión según tu estructura de plantillas -->
+
+{% block content %}
+  <h1>Borrar Proveedor</h1>
+  <p>¿Estás seguro de que deseas borrar el proveedor "{{ proveedor.nombre }}"?</p>
+  <form method="post" action="{% url 'borrar_proveedor' id_proveedor=proveedor.id_proveedor %}">
+    {% csrf_token %}
+    <button type="submit">Sí, borrar</button>
+  </form>
+  <a href="{% url 'listar_proveedores' %}">Cancelar</a>
+{% endblock %}

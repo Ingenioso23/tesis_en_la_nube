@@ -1,0 +1,40 @@
+<!-- listar_proveedores.html -->
+{% extends 'base.html' %}
+
+{% block title %}Listar Proveedores - IPSI{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Listar Proveedores</h1>
+    {% if proveedores %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Dirección</th>
+                    <th>Teléfono</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for proveedor in proveedores %}
+                    <tr>
+                        <td>{{ proveedor.id_proveedor }}</td>
+                        <td>{{ proveedor.nombre }}</td>
+                        <td>{{ proveedor.direccion }}</td>
+                        <td>{{ proveedor.telefono }}</td>
+                        <td>
+                            <a href="{% url 'editar_proveedor' id_proveedor=proveedor.id_proveedor %}">Editar</a>
+                            <a href="{% url 'borrar_proveedor' id_proveedor=proveedor.id_proveedor %}">Borrar</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No hay proveedores registrados.</p>
+    {% endif %}
+    <a href="{% url 'crear_proveedor' %}">Crear Proveedor</a>
+</div>
+{% endblock %}

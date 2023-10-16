@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block notificaciones%}{% endblock %}
+{% block navbar %}{% endblock %}
+
+{% block title %}Sesión Terminada{% endblock %}
+
+{% block content %}
+    <h1>Ha terminado la sesión {{ user.username }}. Gracias por usar nuestro sistema.</h1>
+
+    <script>
+        // Deshabilitar la funcionalidad de regresar del navegador
+        history.pushState(null, null, document.URL);
+        window.addEventListener('popstate', function () {
+            history.pushState(null, null, document.URL);
+        });
+    </script>
+{% endblock %}

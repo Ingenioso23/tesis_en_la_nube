@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Listar Usuarios - IPSI{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Listar Usuarios</h1>
+    {% if usuarios %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Usuario</th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Email</th>
+                    
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for usuario in usuarios %}
+                    <tr>
+                        <td>{{ usuario.id }}</td>
+                        <td>{{ usuario.username }}</td>
+                        <td>{{ usuario.first_name }}</td>
+                        <td>{{ usuario.last_name }}</td>
+                        <td>{{ usuario.email }}</td>
+                        
+                        <td>
+                            <a href="{% url 'editar_usuario' usuario.id %}">Editar</a>
+                          <!--  <a href="{% url 'desactivar_usuario' usuario.id %}">Desactivar</a> -->
+                            
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No hay usuarios registrados.</p>
+    {% endif %}
+    <a href="{% url 'crear_usuario' %}">Crear Usuario</a>
+</div>
+{% endblock %}

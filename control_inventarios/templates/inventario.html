@@ -1,0 +1,46 @@
+<!-- control_inventarios/templates/inventario.html -->
+
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Inventario Actual</h1>
+  <div class="table-container">
+    <table class="inventario-table">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Cantidad Stock</th>
+          <th>Entradas Totales</th>
+          <th>Salidas Totales</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for producto in inventario %}
+          <tr>
+            <td>{{ producto.NombreProducto }}</td>
+            <td>{{ producto.CantidadStock }}</td>
+            <td>{{ producto.entradas_totales }}</td>
+            <td>{{ producto.salidas_totales }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      function actualizarInventario() {
+        $.get("{% url 'inventario_data' %}", function(data) {
+          $("#inventario-table").html(data);
+        });
+      }
+
+      // Actualizar cada 60 segundos (puedes ajustar este intervalo según tus necesidades)
+      setInterval(actualizarInventario, 60000);
+
+      // Actualizar la primera vez
+      actualizarInventario();
+    });
+  </script>
+{% endblock %}
+

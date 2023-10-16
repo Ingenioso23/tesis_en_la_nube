@@ -1,0 +1,40 @@
+<!-- listar_entidades_salud.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Lista de Entidades de Salud - IPSI{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Lista de Entidades de Salud</h1>
+    {% if entidades_salud %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entidad_salud in entidades_salud %}
+                    <tr>
+                        <td>{{ entidad_salud.id_entidad }}</td>
+                        <td>
+                            <a href="{% url 'detalle_entidad_salud' id_entidad=entidad_salud.id_entidad %}">{{ entidad_salud.nombre }}</a>
+                        </td>
+                        <td>
+                            <a href="{% url 'editar_entidad_salud' id_entidad=entidad_salud.id_entidad %}">Editar</a>
+                            <a href="{% url 'borrar_entidad_salud' id_entidad=entidad_salud.id_entidad %}">Borrar</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No hay entidades de salud registradas.</p>
+    {% endif %}
+    <a href="{% url 'crear_entidad_salud' %}">Crear Nueva Entidad de Salud</a>
+</div>
+{% endblock %}
+
