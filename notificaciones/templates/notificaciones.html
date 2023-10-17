@@ -1,9 +1,9 @@
-<!-- notificaciones.html -->
-
 {% extends 'base.html' %}
 
 {% block content %}
   {% for notificacion in notificaciones %}
-    <div>{{ notificacion.mensaje }} - {{ notificacion.fecha_creacion }}</div>
+    <div class="notification" id="notif_{{ notificacion.id }}">
+      {{ notificacion.mensaje }} - {{ notificacion.fecha_creacion }}
+    </div>
   {% endfor %}
 {% endblock %}

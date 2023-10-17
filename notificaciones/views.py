@@ -1,6 +1,6 @@
 # views.py
 import logging
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import render
 from django.http import JsonResponse
 from django.db.models import F
 from .models import Notificacion
@@ -56,13 +56,10 @@ def cargar_notificaciones(request):
     return JsonResponse({'notificaciones': notificaciones_data}, safe=False)
 
 def marcar_notificacion_leida(request, notificacion_id):
-    try:
-        notificacion = get_object_or_404(Notificacion, id=notificacion_id)
-        notificacion.leida = True
-        notificacion.save()
+    notificacion = Notificacion.objects.get(id=notificacion_id)
+    notificacion.leida = 1
+    notificacion.save()
 
-        notificaciones_no_leidas = Notificacion.objects.filter(leida=False).count()
+    notificaciones_no_leidas = Notificacion.objects.filter(leida=False).count()
 
-        return JsonResponse({'notificaciones': notificaciones_no_leidas})
-    except Exception as e:
-        return JsonResponse({'error': str(e)}, status=500)
+    return JsonResponse({'notificaciones': notificaciones_no_leidas})
