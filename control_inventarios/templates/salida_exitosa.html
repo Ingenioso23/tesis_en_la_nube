@@ -1,7 +1,18 @@
-<!-- En entrada_exitosa.html -->
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Salida Registrada Exitosamente</h1>
-    <p>La Salida de suministros ha sido registrada exitosamente.</p>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card mt-5">
+          <div class="card-body text-center">
+            <h1 class="display-4">Salida Registrada Exitosamente</h1>
+            <p class="lead">La salida de suministros ha sido registrada exitosamente.</p>
+            <a class="dropdown-item" href="{% url 'registrar_salida' %}">Nueva Salida de Suministros</a>
+            <a href="{% url 'index' %}" class="btn btn-primary">Regresar al Inicio</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}

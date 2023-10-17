@@ -1,7 +1,18 @@
-<!-- En entrada_exitosa.html -->
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Entrada Registrada Exitosamente</h1>
-    <p>La entrada de suministros ha sido registrada exitosamente.</p>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card mt-5">
+          <div class="card-body text-center">
+            <h1 class="display-4">Entrada Registrada Exitosamente</h1>
+            <p class="lead">La entrada de suministros ha sido registrada exitosamente.</p>
+            <a class="dropdown-item" href="{% url 'registrar_entrada' %}">Nueva Entrada de Suministros</a>
+            <a href="{% url 'index' %}" class="btn btn-primary">Regresar al Inicio</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}

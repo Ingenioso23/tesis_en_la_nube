@@ -38,6 +38,7 @@ if settings.DEBUG:
     path('', auth_views.LoginView.as_view(), name='login'),  # Página de inicio de sesión
     path('accounts/', include('sistema_registro.urls')),  # Ruta a tus URLs de sistema_registro
     path('accounts/', include('control_inventarios.urls')),
+    path('notificaciones/', include('notificaciones.urls')),
     path('__debug__/', include(debug_toolbar.urls)),
     path('index/', views.index, name='index'),
      

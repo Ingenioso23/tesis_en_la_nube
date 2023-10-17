@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'sistema_registro',
     'control_inventarios',
     'debug_toolbar',
-    'notifications',
+    'notificaciones',
     
   
    
