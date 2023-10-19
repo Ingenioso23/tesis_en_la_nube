@@ -9,7 +9,8 @@
     <table class="table">
         <thead>
             <tr>
-                <th>ID Producto</th>
+                <th>cod. Producto</th>
+                <th>Nombre</th>
                 <th>Cantidad</th>
                 <th>Fecha de Entrada</th>
                 <th>Proveedor</th>
@@ -19,7 +20,8 @@
             {% for entrada in entradas %}
             <tr>
                 <td>{{ entrada.id_producto.id }}</td>
-                <td>{{ entrada.cantidad }}</td>
+                <td>{{ entrada.id_producto.NombreProducto }}</td>
+                <td>{{ entrada.cantidad }}</td>                
                 <td>{{ entrada.fecha_entrada }}</td>
                 <td>{{ entrada.proveedor.nombre }}</td>
             </tr>

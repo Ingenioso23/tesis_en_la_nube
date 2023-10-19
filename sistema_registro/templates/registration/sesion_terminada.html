@@ -6,6 +6,7 @@
 
 {% block content %}
     <h1>Ha terminado la sesión {{ user.username }}. Gracias por usar nuestro sistema.</h1>
+    <p>¿Desea iniciar sesión nuevamente? <a href="{% url 'login' %}">Iniciar Sesión</a></p>
 
     <script>
         // Deshabilitar la funcionalidad de regresar del navegador
@@ -14,4 +15,5 @@
             history.pushState(null, null, document.URL);
         });
     </script>
+
 {% endblock %}

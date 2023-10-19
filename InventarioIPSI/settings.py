@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from decouple import Config, Csv
 from pathlib import Path
 import os
+
+from django.urls import reverse_lazy
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -86,16 +88,8 @@ WSGI_APPLICATION = 'InventarioIPSI.wsgi.application'
 # settings.py
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'bdinventarioipsi',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '3306',
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-
-        }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -152,7 +146,7 @@ INTERNAL_IPS = [
     '127.0.0.1',
 ]
 AUTH_USER_MODEL = 'sistema_registro.Usuario'
-LOGIN_REDIRECT_URL = 'index'
+LOGIN_REDIRECT_URL = reverse_lazy('index')
 NOTIFICATIONS_USE_JSONFIELD = True
 NOTIFICATIONS_NOTIFICATION_MODEL = 'notifications.Notification'
 
@@ -167,5 +161,5 @@ SERVER_EMAIL = 'ing.leonardoalmazo@gmail.com'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
-SESSION_ENGINE = 'django.contrib.sessions.backends.db'
-LOGOUT_REDIRECT_URL = 'terminar_sesion'
+# SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+LOGOUT_REDIRECT_URL = reverse_lazy('login')

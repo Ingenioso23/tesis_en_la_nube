@@ -22,8 +22,8 @@ class RegistroAccesoAdmin(admin.ModelAdmin):
 
 @admin.register(SolicitudRestablecimiento)
 class SolicitudRestablecimientoAdmin(admin.ModelAdmin):
-    list_display = ('usuario', 'fecha_solicitud', 'estado')
-    list_filter = ('usuario', 'estado')
+    list_display = ('usuario', 'token', 'fecha_solicitud', 'fecha_restablecimiento')
+    list_filter = ('usuario', 'fecha_restablecimiento')
 
 
 

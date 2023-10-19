@@ -243,7 +243,7 @@ def crear_producto(request):
     if request.method == 'POST':
         if form.is_valid():
             form.save()
-            return redirect('crear_producto')
+            return redirect('listar_productos')
 
     return render(request, 'control_inventarios/crear_producto.html', {'productos': productos, 'form': form})
 
