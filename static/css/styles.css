@@ -188,3 +188,6 @@ main {
     align-items: center;
     height: auto; /* Altura del 100% de la ventana */
 }
+.required {
+    color: red;
+}
