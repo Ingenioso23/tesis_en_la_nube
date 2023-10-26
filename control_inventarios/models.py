@@ -44,20 +44,20 @@ class Producto(models.Model):
         ('Suministro', 'Suministro'),
     )
 
-    id = models.CharField(primary_key=True, max_length=8)
-    NombreProducto = models.CharField(max_length=255)
-    categoria = models.CharField(max_length=255, choices=CATEGORIAS)
-    TipoProducto = models.CharField(max_length=255)
+    id = models.CharField(primary_key=True, max_length=8, null=False)
+    NombreProducto = models.CharField(max_length=255, null=False)
+    categoria = models.CharField(max_length=255, choices=CATEGORIAS, null=False)
+    TipoProducto = models.CharField(max_length=255, null=False)
     Concentracion = models.CharField(max_length=255)
     FormaFarmaceutica = models.CharField(max_length=255)
-    UnidadesMedida = models.CharField(max_length=255)
+    UnidadesMedida = models.CharField(max_length=255, null=False)
     NumeroLote = models.CharField(max_length=255)
-    FechaVencimiento = models.DateField(default=None)
-    CantidadStock = models.IntegerField(default=0)
-    NivelReorden = models.IntegerField()
+    FechaVencimiento = models.DateField(default=None, null=False)
+    CantidadStock = models.IntegerField(default=0, null=False)
+    NivelReorden = models.IntegerField(default=0, null=False)
     Proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
     NumeroReferencia = models.CharField(max_length=255)
-    UbicacionAlmacen = models.CharField(max_length=255)
+    UbicacionAlmacen = models.CharField(max_length=255, null=False)
     
     
     def actualizar_stock(self, cantidad):
