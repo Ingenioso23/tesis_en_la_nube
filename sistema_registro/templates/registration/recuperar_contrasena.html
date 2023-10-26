@@ -2,15 +2,16 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    {% block notificaciones%}{% endblock %}
+    {% block notificaciones %}{% endblock %}
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block title %}Recuperar Contraseña - IPSI{% endblock %}
+
+    {% block currentPage %}window.currentPage = "notAllowedPage";{% endblock %}
     
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
-
 
 </head>
 {% block navbar %}{% endblock %}
@@ -24,7 +25,10 @@
             {{ form.as_p }}
             <button type="submit" class="btn btn-primary">Enviar Correo de Recuperación</button>
         </form>
-        <p>¿Recuerdas tu contraseña? <a href="{% url 'login' %}">Inicia Sesión</a></p>
+        <p>¿Recuerdas tu contraseña? <a href="{% url 'registration/login' %}{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}">Inicia Sesión</a></p>
+
+
+
     </div>
     {% endblock %}
 </body>

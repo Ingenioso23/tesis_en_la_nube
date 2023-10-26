@@ -3,10 +3,12 @@
 {% block navbar %}{% endblock %}
 
 {% block title %}Sesión Terminada{% endblock %}
+{% block currentPage %}window.currentPage = "notAllowedPage";{% endblock %}
 
 {% block content %}
     <h1>Ha terminado la sesión {{ user.username }}. Gracias por usar nuestro sistema.</h1>
-    <p>¿Desea iniciar sesión nuevamente? <a href="{% url 'login' %}">Iniciar Sesión</a></p>
+    <p>Volver a <a href="{% url 'login' %}{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}">Inicia Sesión</a></p>
+
 
     <script>
         // Deshabilitar la funcionalidad de regresar del navegador

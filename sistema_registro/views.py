@@ -32,7 +32,7 @@ from django.views import View
 from .models import Usuario
 from django.contrib.auth import logout
 from control_inventarios.decorators import decorator
-
+from urllib.parse import unquote
 class ListarUsuariosView(View):
     template_name = 'listar_usuarios.html'
 
@@ -41,6 +41,8 @@ class ListarUsuariosView(View):
         return render(request, self.template_name, {'usuarios': usuarios})
 
     
+
+
 @login_required(login_url='login')
 @decorator
 def iniciar_sesion(request):
@@ -55,7 +57,14 @@ def iniciar_sesion(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return redirect('index')
+
+                    # Después de autenticar al usuario correctamente
+                    if 'next' in request.GET:
+                        # Utiliza unquote para decodificar la URL almacenada en 'next'
+                        next_url = unquote(request.GET['next'])
+                        return redirect(next_url)
+                    else:
+                        return redirect('index')
                 else:
                     return HttpResponse("Tu cuenta está desactivada.")
             else:
@@ -191,3 +200,6 @@ def tu_vista_protegida(request):
         # Realizar acciones adicionales si la sesión ha terminado, por ejemplo, mostrar un mensaje.
         mensaje = "La sesión ha terminado. Por favor, inicia sesión nuevamente."
         return render(request, 'registration/sesion_terminada.html', {'mensaje': mensaje})
+    
+def password_reset_done(request):
+    return render(request, 'registration/recuperar_contrasena_done.html')
