@@ -1,6 +1,6 @@
 
 from django.contrib.auth.views import LogoutView
-from control_inventarios.decorators import decorator
+from control_inventarios.decorators import decorator, group_required
 from .forms import CustomAuthenticationForm, CustomUserChangeForm
 from django.http import HttpResponse
 from .forms import CrearUsuarioForm
@@ -114,12 +114,12 @@ def crear_usuario(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'El usuario ha sido creado correctamente.')
-            return redirect('configuracion')  # Redirige de nuevo a la página de configuración
+            return redirect('listar_usuarios')  # Redirige de nuevo a la página de configuración
     else:
         messages.error(request, 'Hubo un error al crear el usuario. Por favor, revisa los datos ingresados.')
         form = CrearUsuarioForm()
     return render(request, 'crear_usuario.html', {'form': form})
-
+@group_required('Administrador')
 def editar_usuario(request, usuario_id):
     usuario = get_object_or_404(Usuario, id=usuario_id)
 
@@ -152,6 +152,7 @@ def desactivar_usuario(request, usuario_id):
     }
     return render(request, 'desactivar_usuario.html', context)
 
+@group_required('Administrador')
 def configuracion(request):
     # Recupera el usuario que deseas editar, por ejemplo, el usuario actualmente autenticado
     usuario = request.user  # Esto asume que el usuario actualmente autenticado es el que deseas editar

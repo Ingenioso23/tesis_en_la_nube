@@ -2,7 +2,7 @@
 
 from http.client import HTTPResponse
 from django.shortcuts import render, redirect
-
+from .decorators import group_required
 from .forms import EntradaSuministroForm
 from .models import EntradaSuministro, MovimientoInventario, Producto, SalidaSuministro  # Agregado desde 24092023
 from django.contrib.auth.decorators import login_required
@@ -29,6 +29,7 @@ from django.shortcuts import redirect
 
 import tablib
 from django.http import HttpResponse
+@group_required('Gerente')
 def exportar_entradas(request):
     # Lógica de filtrado para exportar solo los datos deseados
     # Puedes obtener los parámetros de filtro desde la URL o utilizar un formulario de filtrado
@@ -51,7 +52,7 @@ def exportar_entradas(request):
     return response
 
 
-
+@group_required('Gerente')
 def exportar_inventario(request):
     # Obtener datos del inventario utilizando la vista inventario_data
     inventario_data_response = inventario_data(request)
@@ -74,7 +75,7 @@ def exportar_inventario(request):
     return response
 
 
-
+@group_required('Gerente')
 def exportar_salidas(request):
     # Lógica de filtrado similar a exportar_entradas
     producto_id = request.GET.get('producto_id')
@@ -92,6 +93,7 @@ def exportar_salidas(request):
     response = HttpResponse(dataset.xlsx, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     response['Content-Disposition'] = 'attachment; filename=salidas_suministros.xlsx'
     return response
+@group_required('Gerente')
 def consultar_entradas(request):
     # Lógica para obtener datos de la consulta (puedes usar request.GET)
     # Ejemplo: 
@@ -115,6 +117,7 @@ def consultar_entradas(request):
     # Lógica para renderizar la plantilla con los resultados
     return render(request, 'consultar_entradas.html', {'entradas': entradas})
 
+@group_required('Gerente')
 def consultar_salidas(request):
     # Lógica para obtener datos de la consulta (puedes usar request.GET)
     # Ejemplo:
@@ -143,11 +146,11 @@ def consultar_salidas(request):
 
 # Vista para listar todos los proveedores
 
-
+@group_required('Usuario_Registrado')
 def listar_proveedores(request):
     proveedores = Proveedor.objects.all()
     return render(request, 'control_inventarios/listar_proveedores.html', {'proveedores': proveedores})
-
+@group_required('Usuario_Registrado')
 def crear_proveedor(request):
     if request.method == 'POST':
         form = ProveedorForm(request.POST)
@@ -157,7 +160,7 @@ def crear_proveedor(request):
     else:
         form = ProveedorForm()
     return render(request, 'control_inventarios/crear_proveedor.html', {'form': form})
-
+@group_required('Usuario_Registrado')
 def editar_proveedor(request, id_proveedor):
     proveedor = get_object_or_404(Proveedor, id_proveedor=id_proveedor)
     if request.method == 'POST':
@@ -194,7 +197,7 @@ def inventario_data(request):
 from django.db.models import F
 
 # ... Otras importaciones ...
-
+@group_required('Usuario_Registrado')
 def registrar_salida(request):
     if request.method == 'POST':
         form = SalidaSuministroForm(request.POST)
@@ -224,7 +227,7 @@ def salida_exitosa(request):
 def index(request):
     return render(request, 'index.html')
 
-
+@group_required('Usuario_Registrado')
 def registrar_entrada(request):
     if request.method == 'POST':
         form = EntradaSuministroForm(request.POST)
@@ -259,6 +262,7 @@ def visualizar_inventario(request):
     return render(request, 'inventario.html', {'inventario': inventario})
 
 # Productos
+@group_required('Usuario_Registrado')
 def productos(request):
     return render(request, 'producto/productos.html')
 
@@ -350,7 +354,7 @@ def borrar_cliente(request, id_cliente):
         cliente.delete()
         return redirect('listar_clientes')
     return render(request, 'control_inventarios/borrar_cliente.html', {'cliente': cliente})
-
+@group_required('Usuario_Registrado')
 def clientes(request):
     # Recupera la lista de clientes desde tu base de datos o donde estén almacenados
     clientes = Cliente.objects.all()  # Otra consulta según tu modelo
@@ -362,7 +366,7 @@ def clientes(request):
             cliente.id_cliente = 'ValorPredeterminado'
 
     return render(request, 'clientes/clientes.html', {'clientes': clientes})
-
+@group_required('Usuario_Registrado')
 def proveedor(request):
     proveedores = Proveedor.objects.all()  # Obtener todos los proveedores
     for proveedor in proveedores:
@@ -372,7 +376,7 @@ def proveedor(request):
 
     return render(request, 'proveedor/proveedores.html', {'proveedores': proveedores})
 
-
+@group_required('Usuario_Registrado')
 # Entidades de Salud
 def entidades(request):
     entidades_salud = EntidadSalud.objects.all()

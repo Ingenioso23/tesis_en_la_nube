@@ -28,7 +28,11 @@
                         <td>{{ usuario.email }}</td>
                         
                         <td>
+                            
+                        <!-- ostrar el enlace solo si es gerente -->
+
                             <a href="{% url 'editar_usuario' usuario.id %}">Editar</a>
+                     
                           <!--  <a href="{% url 'desactivar_usuario' usuario.id %}">Desactivar</a> -->
                             
                         </td>
