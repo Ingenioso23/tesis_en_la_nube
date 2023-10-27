@@ -145,12 +145,20 @@ def consultar_salidas(request):
 
 
 # Vista para listar todos los proveedores
+@group_required('usuario_registrado')
+def proveedor(request):
+    proveedores = Proveedor.objects.all()  # Obtener todos los proveedores
+    for proveedor in proveedores:
+        if not Proveedor.id_proveedor:
+            # Puedes asignar un valor predeterminado o manejarlo de otra manera
+            Proveedor.id_proveedor = 'ValorPredeterminado'
 
-@group_required('Usuario_Registrado')
+    return render(request, 'proveedor/proveedores.html', {'proveedores': proveedores})
+
 def listar_proveedores(request):
     proveedores = Proveedor.objects.all()
     return render(request, 'control_inventarios/listar_proveedores.html', {'proveedores': proveedores})
-@group_required('Usuario_Registrado')
+
 def crear_proveedor(request):
     if request.method == 'POST':
         form = ProveedorForm(request.POST)
@@ -160,7 +168,7 @@ def crear_proveedor(request):
     else:
         form = ProveedorForm()
     return render(request, 'control_inventarios/crear_proveedor.html', {'form': form})
-@group_required('Usuario_Registrado')
+
 def editar_proveedor(request, id_proveedor):
     proveedor = get_object_or_404(Proveedor, id_proveedor=id_proveedor)
     if request.method == 'POST':
@@ -197,7 +205,7 @@ def inventario_data(request):
 from django.db.models import F
 
 # ... Otras importaciones ...
-@group_required('Usuario_Registrado')
+@group_required('usuario_registrado')
 def registrar_salida(request):
     if request.method == 'POST':
         form = SalidaSuministroForm(request.POST)
@@ -227,7 +235,7 @@ def salida_exitosa(request):
 def index(request):
     return render(request, 'index.html')
 
-@group_required('Usuario_Registrado')
+@group_required('usuario_registrado')
 def registrar_entrada(request):
     if request.method == 'POST':
         form = EntradaSuministroForm(request.POST)
@@ -262,7 +270,7 @@ def visualizar_inventario(request):
     return render(request, 'inventario.html', {'inventario': inventario})
 
 # Productos
-@group_required('Usuario_Registrado')
+@group_required('usuario_registrado')
 def productos(request):
     return render(request, 'producto/productos.html')
 
@@ -354,7 +362,7 @@ def borrar_cliente(request, id_cliente):
         cliente.delete()
         return redirect('listar_clientes')
     return render(request, 'control_inventarios/borrar_cliente.html', {'cliente': cliente})
-@group_required('Usuario_Registrado')
+@group_required('usuario_registrado')
 def clientes(request):
     # Recupera la lista de clientes desde tu base de datos o donde estén almacenados
     clientes = Cliente.objects.all()  # Otra consulta según tu modelo
@@ -366,17 +374,9 @@ def clientes(request):
             cliente.id_cliente = 'ValorPredeterminado'
 
     return render(request, 'clientes/clientes.html', {'clientes': clientes})
-@group_required('Usuario_Registrado')
-def proveedor(request):
-    proveedores = Proveedor.objects.all()  # Obtener todos los proveedores
-    for proveedor in proveedores:
-        if not Proveedor.id_proveedor:
-            # Puedes asignar un valor predeterminado o manejarlo de otra manera
-            Proveedor.id_proveedor = 'ValorPredeterminado'
 
-    return render(request, 'proveedor/proveedores.html', {'proveedores': proveedores})
 
-@group_required('Usuario_Registrado')
+@group_required('usuario_registrado')
 # Entidades de Salud
 def entidades(request):
     entidades_salud = EntidadSalud.objects.all()
