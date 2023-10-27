@@ -4,7 +4,7 @@ from http.client import HTTPResponse
 from django.shortcuts import render, redirect
 
 from .forms import EntradaSuministroForm
-from .models import EntradaSuministro, Producto, SalidaSuministro  # Agregado desde 24092023
+from .models import EntradaSuministro, MovimientoInventario, Producto, SalidaSuministro  # Agregado desde 24092023
 from django.contrib.auth.decorators import login_required
 from .models import Producto
 from .forms import ProductoForm
@@ -18,7 +18,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ProveedorForm
 from .models import Proveedor
 from django.http import HttpResponse, JsonResponse
-from .resources import EntradaSuministroResource, SalidaSuministroResource
+from .resources import EntradaSuministroResource, SalidaSuministroResource, MovimientoInvnetarioResource
 from tablib import Dataset
 from .models import EntradaSuministro, SalidaSuministro
 from django.shortcuts import render, redirect
@@ -27,7 +27,8 @@ from django.shortcuts import render, redirect
 
 from django.shortcuts import redirect
 
-
+import tablib
+from django.http import HttpResponse
 def exportar_entradas(request):
     # Lógica de filtrado para exportar solo los datos deseados
     # Puedes obtener los parámetros de filtro desde la URL o utilizar un formulario de filtrado
@@ -49,15 +50,48 @@ def exportar_entradas(request):
     response['Content-Disposition'] = 'attachment; filename=entradas_suministros.xlsx'
     return response
 
+
+
+def exportar_inventario(request):
+    # Obtener datos del inventario utilizando la vista inventario_data
+    inventario_data_response = inventario_data(request)
+
+    # Obtener el contenido de la respuesta JSON
+    inventario_data_json = inventario_data_response.content.decode('utf-8')
+    inventario_data_list = eval(inventario_data_json)
+
+    # Crear un dataset de Tablib con los datos del inventario
+    dataset = tablib.Dataset()
+    dataset.headers = ['Producto', 'CantidadStock', 'EntradasTotales', 'SalidasTotales']
+
+    for item in inventario_data_list:
+        dataset.append([item['Producto'], item['CantidadStock'], item['EntradasTotales'], item['SalidasTotales']])
+
+    # Crear la respuesta HTTP con el archivo Excel
+    response = HttpResponse(dataset.xlsx, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=Inventario_Actual.xlsx'
+
+    return response
+
+
+
 def exportar_salidas(request):
     # Lógica de filtrado similar a exportar_entradas
-    # ...
+    producto_id = request.GET.get('producto_id')
+    fecha_inicio = request.GET.get('fecha_inicio')
+    fecha_fin = request.GET.get('fecha_fin')
+
+    queryset = SalidaSuministro.objects.all()
+
+    if producto_id:
+        queryset = queryset.filter(id_producto=producto_id)
+
+    # Agregar más lógica de filtro según tus necesidades
 
     dataset = SalidaSuministroResource().export(queryset)
     response = HttpResponse(dataset.xlsx, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     response['Content-Disposition'] = 'attachment; filename=salidas_suministros.xlsx'
     return response
-
 def consultar_entradas(request):
     # Lógica para obtener datos de la consulta (puedes usar request.GET)
     # Ejemplo: 

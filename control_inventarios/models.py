@@ -5,10 +5,10 @@ from notifications.signals import notify
 from django.db.models import F
 
 class EntidadSalud(models.Model):
-    id_entidad = models.CharField(primary_key=True, max_length=13, unique=True)
-    nombre = models.CharField(max_length=100)
-    direccion = models.CharField(max_length=255)
-    telefono = models.CharField(max_length=15)
+    id_entidad = models.CharField(primary_key=True, max_length=13, unique=True, null=False)
+    nombre = models.CharField(max_length=100, null=False)
+    direccion = models.CharField(max_length=255, null=False)
+    telefono = models.CharField(max_length=15, null=False)
     email = models.EmailField(max_length=100, blank=True, null=True)
 
     def __str__(self):
@@ -19,21 +19,21 @@ class Cliente(models.Model):
         ('Interno', 'Interno'),
         ('Externo', 'Externo'),
     )
-    id_cliente = models.CharField(primary_key=True, max_length=13, unique=True)
-    nombre = models.CharField(max_length=255)
-    direccion = models.CharField(max_length=255)
-    telefono = models.CharField(max_length=20)
-    tipo_cliente = models.CharField(max_length=255, choices=TIPOCLIENTES)
+    id_cliente = models.CharField(primary_key=True, max_length=13, unique=True, null=False)
+    nombre = models.CharField(max_length=255, null=False)
+    direccion = models.CharField(max_length=255, null=False)
+    telefono = models.CharField(max_length=20, null=False)
+    tipo_cliente = models.CharField(max_length=255, choices=TIPOCLIENTES, null=False)
     entidad_salud = models.ForeignKey(EntidadSalud, on_delete=models.SET_NULL, blank=True, null=True)  # Relación con entidad de salud
 
     def __str__(self):
         return self.nombre
 
 class Proveedor(models.Model):
-    id_proveedor = models.CharField(primary_key=True, max_length=13, unique=True)
-    nombre = models.CharField(max_length=255)
-    direccion = models.CharField(max_length=255)
-    telefono = models.CharField(max_length=20)
+    id_proveedor = models.CharField(primary_key=True, max_length=13, unique=True, null=False)
+    nombre = models.CharField(max_length=255, null=False)
+    direccion = models.CharField(max_length=255, null=False)
+    telefono = models.CharField(max_length=20, null=False)
 
     def __str__(self):
         return self.nombre
@@ -76,10 +76,10 @@ class Producto(models.Model):
 
 
 class EntradaSuministro(models.Model):
-    id_producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
-    cantidad = models.IntegerField(default=0)
-    fecha_entrada = models.DateField()
-    proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
+    id_producto = models.ForeignKey(Producto, on_delete=models.CASCADE, null=False)
+    cantidad = models.IntegerField(default=0, null=False)
+    fecha_entrada = models.DateField(null=False)
+    proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, null=False)
 
     def __str__(self):
         return f'Entrada de {self.cantidad} unidades de {self.id_producto.NombreProducto} el {self.fecha_entrada}'
@@ -93,11 +93,11 @@ class EntradaSuministro(models.Model):
         super().save(*args, **kwargs)
     
 class SalidaSuministro(models.Model):
-    id_producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
-    cantidad = models.IntegerField()
-    fecha_salida = models.DateField()
-    destino = models.CharField(max_length=255)
-    razon = models.TextField()
+    id_producto = models.ForeignKey(Producto, on_delete=models.CASCADE, null=False)
+    cantidad = models.IntegerField(null=False)
+    fecha_salida = models.DateField(null=False)
+    destino = models.CharField(max_length=255, null=False)
+    razon = models.TextField(null=False)
     numero_autorizacion = models.CharField(max_length=10, blank=True, null=True)  # Número de autorización
     id_cliente = models.ForeignKey(Cliente, on_delete=models.SET_NULL, blank=True, null=True)  # ID del cliente
 
@@ -113,10 +113,10 @@ class AlertaInventario(models.Model):
         return f'Alerta para {self.Producto.NombreProducto} - Bajo Umbral el {self.fecha}'
 
 class MovimientoInventario(models.Model):
-    id_producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
-    tipo_movimiento = models.CharField(max_length=255)
-    cantidad = models.IntegerField()
-    fecha = models.DateField()
+    id_producto = models.ForeignKey(Producto, on_delete=models.CASCADE, null=False)
+    tipo_movimiento = models.CharField(max_length=255, null=False)
+    cantidad = models.IntegerField(null=False)
+    fecha = models.DateField(null=False)
 
     def __str__(self):
         return f'{self.tipo_movimiento} de {self.cantidad} unidades de {self.Producto.NombreProducto} el {self.fecha}'

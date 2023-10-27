@@ -2,7 +2,7 @@
 
 from django.urls import path
 from . import views
-from .views import borrar_entidad_salud, consultar_entradas, consultar_salidas, detalle_entidad_salud, editar_entidad_salud, exportar_entradas, exportar_salidas, lista_entidades_salud
+from .views import borrar_entidad_salud, consultar_entradas, consultar_salidas, detalle_entidad_salud, editar_entidad_salud, exportar_entradas, exportar_inventario, exportar_salidas, lista_entidades_salud
 
 from .views import editar_producto
 urlpatterns = [
@@ -36,7 +36,7 @@ urlpatterns = [
     path('editar_proveedor/<str:id_proveedor>/', views.editar_proveedor, name='editar_proveedor'),
     path('borrar_proveedor/<str:id_proveedor>/', views.borrar_proveedor, name='borrar_proveedor'),
     path('proveedor/', views.proveedor, name='proveedor'),
-    
+    path('exportar_inventario/', exportar_inventario, name='exportar_inventario'),
     path('exportar_entradas/', exportar_entradas, name='exportar_entradas'),
     path('exportar_salidas/', exportar_salidas, name='exportar_salidas'),
     path('consultar_entradas/', consultar_entradas, name='consultar_entradas'),

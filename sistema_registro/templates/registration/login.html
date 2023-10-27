@@ -1,23 +1,38 @@
-<!-- login.html -->
 {% extends 'base.html' %}
 
-{% block notificaciones%}{% endblock %}
+{% block notificaciones %}{% endblock %}
 {% block navbar %}{% endblock %}
-{% block title %}Inciar Sesión{% endblock %}
+{% block title %}Iniciar Sesión{% endblock %}
 {% block currentPage %}window.currentPage = "notAllowedPage";{% endblock %}
 
 {% block content %}
-    <!-- Contenido específico del formulario de inicio de sesión -->
-    <div class="login-container">
-        <h2>Iniciar Sesión</h2>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
-        </form>
-        <!-- <p>¿Aún no tienes una cuenta? <a href="{% url 'registro' %}">Regístrate</a></p> -->
-        <p>¿Olvidaste tu contraseña? <a href="{% url 'password_reset' %}">Recuperar Contraseña</a></p>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h2 class="text-center">Iniciar Sesión</h2>
+                <div class="login-container">
+                    <form method="post" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="mb-3">
+                                {{ field.label_tag }}
+                                {{ field }}
+                                {% if field.field.required %}
+                                    <span class="required">*</span>
+                                {% endif %}
+                                {% if field.errors %}
+                                    <div class="invalid-feedback">
+                                        {{ field.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                    </form>
+                    <p>¿Olvidaste tu contraseña? <a href="{% url 'password_reset' %}">Recuperar Contraseña</a></p>
+                    <p class="text-muted">* Campos Obligatorios</p>
+                </div>
+            </div>
+        </div>
     </div>
-
 {% endblock %}
-

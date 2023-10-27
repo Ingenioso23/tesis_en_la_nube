@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Reporte de Salidas de Suministros{% endblock %}
+
+{% block content %}
+    <h1>Reporte de Salidas de Suministros</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Fecha</th>
+                <!-- Agrega más encabezados según tus datos -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for salida in salidas %}
+                <tr>
+                    <td>{{ salida.producto }}</td>
+                    <td>{{ salida.cantidad }}</td>
+                    <td>{{ salida.fecha }}</td>
+                    <!-- Agrega más campos según tus datos -->
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

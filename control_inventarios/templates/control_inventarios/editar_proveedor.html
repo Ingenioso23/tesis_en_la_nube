@@ -1,7 +1,7 @@
 <!-- control_inventarios/templates/control_inventarios/editar_proveedor.html -->
 
 {% extends "base.html" %}  <!-- Ajusta la extensión según tu estructura de plantillas -->
-
+{% block title %}IPSI - Editar Proveedor{% endblock %}
 {% block content %}
   <h1>Editar Proveedor</h1>
   <form method="post" action="{% url 'editar_proveedor' id_proveedor=id_proveedor %}">
