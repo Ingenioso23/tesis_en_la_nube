@@ -45,3 +45,17 @@ if settings.DEBUG:
       # Agrega esta línea para el panel de administración
     # Otras URLs de tu aplicación
     ]
+else:
+        urlpatterns = [
+    # Otras URLs de tu aplicación
+    path('admin/', admin.site.urls),
+    path('', auth_views.LoginView.as_view(), name='login'),  # Página de inicio de sesión
+    path('accounts/', include('sistema_registro.urls')),  # Ruta a tus URLs de sistema_registro
+    path('accounts/', include('control_inventarios.urls')),
+    path('notificaciones/', include('notificaciones.urls')),
+    #path('__debug__/', include(debug_toolbar.urls)),
+    path('index/', views.index, name='index'),
+     
+      # Agrega esta línea para el panel de administración
+    # Otras URLs de tu aplicación
+    ]

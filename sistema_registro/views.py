@@ -1,4 +1,4 @@
-
+# En app sistema_registro archivo vies.py
 from django.contrib.auth.views import LogoutView
 from control_inventarios.decorators import decorator, group_required
 from .forms import CustomAuthenticationForm, CustomUserChangeForm
