@@ -1,4 +1,4 @@
-# En views.py
+# En app control_inventarios archivo views.py
 
 from http.client import HTTPResponse
 from django.shortcuts import render, redirect

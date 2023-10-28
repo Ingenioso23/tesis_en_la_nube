@@ -1,4 +1,4 @@
-# views.py
+# En app notificaciones archivo views.py
 import logging
 from django.shortcuts import render
 from django.http import JsonResponse
